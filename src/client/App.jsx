@@ -1,17 +1,23 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import NavBar from './components/NavBar';
 import Login from './components/Login';
+import Home from './components/home';
+import Profile from './components/Profile';
+import SingleHome from './components/SingleHome';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className='App'>
-        <h1>Boilerplate</h1>
-        <img id='comp-img' src='./computer.png'></img>
-        <p>Replace the starter code in this template with something cool</p>
-        <Login />
-    </div>
+    <>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/homes/:id" element={<SingleHome />} />
+      </Routes>
+    
+    </>
   );
 }
 

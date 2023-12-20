@@ -34,6 +34,29 @@ const getUser = async({email, password}) => {
     }
 }
 
+const getUserById = async (userId) => {
+    try {
+      const { rows: [user] } = await db.query( 
+        `
+        SELECT *
+        FROM users
+        WHERE id = $1;
+        `,
+        [userId]
+      );
+  
+      if (!user) return null;
+  
+      // Omitting password from the user object
+      const sanitizedUser = { ...user };
+      delete sanitizedUser.password;
+  
+      return sanitizedUser;
+    } catch (error) {
+      throw error;
+    }
+  };
+
 const getUserByEmail = async(email) => {
     try {
         const { rows: [ user ] } = await db.query(`
@@ -53,5 +76,6 @@ const getUserByEmail = async(email) => {
 module.exports = {
     createUser,
     getUser,
-    getUserByEmail
+    getUserByEmail,
+    getUserById
 };
