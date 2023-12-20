@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextField, Typography, Paper, Container } from '@mui/material';
 import { styled } from '@mui/system';
+import Footer from './Footer';
 
 const StyledContainer = styled(Container)({
   display: 'flex',
@@ -86,6 +87,7 @@ const Login = () => {
   };
 
   return (
+    <>
     <StyledContainer component="main" maxWidth="xs">
       <StyledPaper elevation={3}>
         <Typography variant="h5">Login</Typography>
@@ -124,6 +126,8 @@ const Login = () => {
         {/* {token && <Typography variant="body2">Token: {token}</Typography>} */}
       </StyledPaper>
     </StyledContainer>
+    <Footer />
+    </>
   );
 };
 

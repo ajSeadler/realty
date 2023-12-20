@@ -51,6 +51,9 @@ apiRouter.use("/users", usersRouter);
 const homesRouter = require("./homes");
 apiRouter.use("/homes", homesRouter);
 
+const agentsRouter = require("./agents");
+apiRouter.use("/agents", agentsRouter);
+
 // const reviewsRouter = require("./reviews");
 // apiRouter.use("/reviews", reviewsRouter);
 

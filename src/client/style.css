@@ -1,5 +1,8 @@
+
+
+
 body {
-  margin: 0; /* Reset default margin */
+  margin: 0px; /* Reset default margin */
   padding: 0px;
   font-family: 'Arial', sans-serif; /* Specify a fallback font-family */
 }
@@ -22,6 +25,8 @@ body {
 .home-land {
   font-family: sans-serif;
   background-color: rgb(155, 192, 167);
+  margin: 0px;
+  padding: 0px;
 }
 
 .hero-section {
@@ -58,4 +63,11 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
 }
 
+.slick-dots {
+  z-index: 2; 
+}
+
+.footer {
+  z-index: 1; 
+}
 /* Add more styling for other elements if needed */

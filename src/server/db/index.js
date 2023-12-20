@@ -1,4 +1,5 @@
 module.exports = {
     ...require('./users'),
-    ...require('./homes')
+    ...require('./homes'),
+    ...require('./agents')
 }
