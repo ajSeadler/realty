@@ -32,6 +32,14 @@ const users = [
   // Add more user objects as needed
 ];
 
+const favorites = [
+  {
+    user_id: 1,
+    home_id: [1, 2, 3, 4, 5, 6],
+    
+  },
+]
+
 // Sample homes data
 const homes = [
   {
@@ -128,30 +136,32 @@ const homes = [
 const agents = [
   {
       name: 'Michael Shannon',
-      email: 'agent1@example.com',
+      email: 'Michael22rox1@example.com',
       phone_number: '123-456-7890',
-      image_url: 'agent1_image.jpg',
+      image_url: '../images/newmike.jpeg',
   },
   {
       name: 'Marshall Mathers',
-      email: 'agent2@example.com',
+      email: 'm&msRnotReal@example.com',
       phone_number: '987-654-3210',
-      image_url: 'agent2_image.jpg',
+      image_url: '../images/marshall.jpeg',
   },
   // Add more agent objects as needed
 ];
 
+
 // Function to drop existing tables
 const dropTables = async () => {
-    try {
-        await db.query(`
-        DROP TABLE IF EXISTS users, homes, agents;
-        `);
-    }
-    catch(err) {
-        throw err;
-    }
+  try {
+      await db.query(`
+      DROP TABLE IF EXISTS user_favorites, users, homes, agents CASCADE;
+      `);
+  }
+  catch(err) {
+      throw err;
+  }
 };
+
 
 // Function to create tables
 const createTables = async () => {
@@ -184,6 +194,14 @@ const createTables = async () => {
         zillow_link VARCHAR(255),
         agent_id INT REFERENCES agents(id)
     );
+
+    CREATE TABLE user_favorites (
+      id SERIAL PRIMARY KEY,
+      user_id INT REFERENCES users(id),
+      home_id INT REFERENCES homes(id)
+    );
+    
+    
     
     
       `);
@@ -238,6 +256,22 @@ const insertAgents = async () => {
   }
 };
 
+const insertFavorites = async () => {
+  try {
+    for (const favorite of favorites) {
+      for (const home_id of favorite.home_id) {
+        await db.query(`
+          INSERT INTO user_favorites (user_id, home_id)
+          VALUES (${favorite.user_id}, ${home_id});
+        `);
+      }
+    }
+    console.log('Seed favorites data inserted successfully.');
+  } catch (error) {
+    console.error('Error inserting seed favorites data:', error);
+  }
+};
+
 // Function to seed the database with users and homes
 const seedDatabase = async () => {
     try {
@@ -247,6 +281,7 @@ const seedDatabase = async () => {
         await insertUsers();
         await insertAgents();
         await insertHomes();
+        await insertFavorites();
         
     }
     catch (err) {

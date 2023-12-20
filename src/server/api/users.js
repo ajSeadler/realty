@@ -6,7 +6,7 @@ const {
     createUser,
     getUser,
     getUserByEmail,
-    getUserById
+    getUserById, getUserFavorites
 } = require('../db');
 
 const jwt = require('jsonwebtoken')
@@ -62,6 +62,21 @@ usersRouter.get("/me", requireUser, async (req, res, next) => {
       
       console.log("User profile:",req.user);
       res.send(req.user);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  usersRouter.get('/favorites', requireUser, async (req, res, next) => {
+    try {
+      const userId = req.user.id;
+  
+      // Use the function to get user favorites based on the user's ID
+      const favorites = await getUserFavorites(userId);
+  
+      res.send({
+        favorites,
+      });
     } catch (error) {
       next(error);
     }

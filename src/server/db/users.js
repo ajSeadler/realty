@@ -73,9 +73,25 @@ const getUserByEmail = async(email) => {
     }
 }
 
+const getUserFavorites = async (userId) => {
+    try {
+      const result = await db.query(`
+        SELECT homes.*
+        FROM user_favorites
+        JOIN homes ON user_favorites.home_id = homes.id
+        WHERE user_favorites.user_id = $1;
+      `, [userId]);
+  
+      return result.rows;
+    } catch (error) {
+      throw error;
+    }
+  };
+
 module.exports = {
     createUser,
     getUser,
     getUserByEmail,
-    getUserById
+    getUserById,
+    getUserFavorites
 };

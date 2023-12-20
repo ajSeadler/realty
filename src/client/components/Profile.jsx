@@ -1,12 +1,14 @@
+// Profile.js
 import React, { useEffect, useState } from 'react';
 import { Typography, Paper, CircularProgress } from '@mui/material';
 import { styled } from '@mui/system';
+import FavoritesList from './FavoritesList'; // Import the new component
 
 const StyledPaper = styled(Paper)({
   padding: (theme) => theme.spacing(3),
-  textAlign: 'center', // Center text
-  margin: '20px', // Add margin for spacing
-  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Add a subtle box shadow
+  textAlign: 'center',
+  margin: '20px',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
 });
 
 const StyledLoadingContainer = styled('div')({
@@ -16,8 +18,13 @@ const StyledLoadingContainer = styled('div')({
   height: '200px',
 });
 
+const StyledFavoritesContainer = styled('div')({
+  marginTop: '20px',
+});
+
 const Profile = () => {
   const [userData, setUserData] = useState(null);
+  const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -29,22 +36,39 @@ const Profile = () => {
           return;
         }
 
-        const response = await fetch('http://localhost:3000/api/users/me', {
+        // Fetch user data
+        const userResponse = await fetch('http://localhost:3000/api/users/me', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
-        const data = await response.json();
+        const userData = await userResponse.json();
 
-        if (!response.ok) {
-          console.error(data.message);
+        if (!userResponse.ok) {
+          console.error(userData.message);
           return;
         }
 
-        setUserData(data);
+        setUserData(userData);
+
+        // Fetch user favorites
+        const favoritesResponse = await fetch('http://localhost:3000/api/users/favorites', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const favoritesData = await favoritesResponse.json();
+
+        if (!favoritesResponse.ok) {
+          console.error(favoritesData.message);
+          return;
+        }
+
+        setFavorites(favoritesData.favorites);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error('Error fetching user data and favorites:', error);
       } finally {
         setLoading(false);
       }
@@ -55,8 +79,9 @@ const Profile = () => {
 
   return (
     <StyledPaper>
+      
       <Typography variant="h4" gutterBottom>
-        User Profile
+        Welcome!
       </Typography>
 
       {loading ? (
@@ -65,8 +90,13 @@ const Profile = () => {
         </StyledLoadingContainer>
       ) : userData ? (
         <div>
-          <Typography variant="body1">Name: {userData.name}</Typography>
+          <Typography variant="body1">Hello, {userData.name}!</Typography>
           <Typography variant="body1">Email: {userData.email}</Typography>
+
+          {/* Use the FavoritesList component */}
+          <StyledFavoritesContainer>
+            <FavoritesList favorites={favorites} />
+          </StyledFavoritesContainer>
         </div>
       ) : (
         <Typography variant="body1">Failed to fetch user data.</Typography>
