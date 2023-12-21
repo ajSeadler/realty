@@ -6,7 +6,9 @@ const {
     createUser,
     getUser,
     getUserByEmail,
-    getUserById, getUserFavorites
+    getUserById, getUserFavorites,
+    createUserFavorites,
+    deleteUserFavorite
 } = require('../db');
 
 const jwt = require('jsonwebtoken')
@@ -81,6 +83,55 @@ usersRouter.get("/me", requireUser, async (req, res, next) => {
       next(error);
     }
   });
+
+  usersRouter.post('/favorites/add', requireUser, async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const { homeId } = req.body;
+
+        // Check if homeId is provided in the request body
+        if (!homeId) {
+            return next({
+                name: 'MissingDataError',
+                message: 'Please provide a homeId to add to favorites.',
+            });
+        }
+
+        // Use the function to create a user favorite based on the user's ID and home ID
+        await createUserFavorites(userId, homeId);
+
+        res.send({
+            message: 'Favorite added successfully.',
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
+usersRouter.delete('/favorites/remove', requireUser, async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const { homeId } = req.body;
+
+        // Check if homeId is provided in the request body
+        if (!homeId) {
+            return next({
+                name: 'MissingDataError',
+                message: 'Please provide a homeId to remove from favorites.',
+            });
+        }
+
+        // Use the function to delete a user favorite based on the user's ID and home ID
+        await deleteUserFavorite(userId, homeId);
+
+        res.send({
+            message: 'Favorite removed successfully.',
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 usersRouter.post('/register', async(req, res, next) => {
     const { name, email, password } = req.body;

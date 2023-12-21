@@ -33,7 +33,7 @@ const FooterParagraph = styled('p')({
 const FooterLinks = styled('div')({
   display: 'flex',
   justifyContent: 'center',
-  marginTop: '20px',
+  marginTop: '0px',
 });
 
 const FooterLink = styled('a')({
@@ -51,7 +51,7 @@ const Footer = () => {
     <FooterContainer>
       <FooterContent>
         <FooterSection>
-          <FooterHeading>Stunning Realty - Your Gateway to Dream Homes</FooterHeading>
+          {/* <FooterHeading>Stunning Realty - Your Gateway to Dream Homes</FooterHeading> */}
           {/* <FooterParagraph>
             Welcome to Real Tea, where your journey to finding the perfect home begins. We strive to provide you with the most
             comprehensive and user-friendly real estate search experience.

@@ -1,6 +1,6 @@
 // Profile.js
 import React, { useEffect, useState } from 'react';
-import { Typography, Paper, CircularProgress } from '@mui/material';
+import { Typography, Paper, CircularProgress, Avatar } from '@mui/material';
 import { styled } from '@mui/system';
 import FavoritesList from './FavoritesList'; // Import the new component
 
@@ -21,6 +21,13 @@ const StyledLoadingContainer = styled('div')({
 const StyledFavoritesContainer = styled('div')({
   marginTop: '20px',
 });
+
+const StyledAvatar = styled(Avatar)({
+  width: 100,
+  height: 100,
+  margin: '0 auto 20px', // Example: margin top and bottom 20px, auto margin left and right
+});
+
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -79,17 +86,25 @@ const Profile = () => {
 
   return (
     <StyledPaper>
-      
-      <Typography variant="h4" gutterBottom>
-        Welcome!
-      </Typography>
-
       {loading ? (
         <StyledLoadingContainer>
           <CircularProgress />
         </StyledLoadingContainer>
       ) : userData ? (
         <div>
+          <Typography variant="h4" gutterBottom>
+            Welcome!
+          </Typography>
+          {/* Display user's profile picture or use MUI Avatar */}
+          {userData.image_url ? (
+            <StyledAvatar alt={userData.name} src={userData.image_url} />
+          ) : (
+            <StyledAvatar alt={userData.name}>
+              {userData.name.charAt(0)}
+            </StyledAvatar>
+          )}
+
+          
           <Typography variant="body1">Hello, {userData.name}!</Typography>
           <Typography variant="body1">Email: {userData.email}</Typography>
 
