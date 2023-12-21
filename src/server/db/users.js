@@ -88,10 +88,41 @@ const getUserFavorites = async (userId) => {
     }
   };
 
+  const createUserFavorites = async (userId, homeId) => {
+    try {
+        await db.query(`
+            INSERT INTO user_favorites (user_id, home_id)
+            VALUES ($1, $2)
+            ON CONFLICT (user_id, home_id) DO NOTHING;
+        `, [userId, homeId]);
+
+        // You can include additional logic or error handling if needed
+
+    } catch (error) {
+        throw error;
+    }
+};
+
+const deleteUserFavorite = async (userId, homeId) => {
+    try {
+        await db.query(`
+            DELETE FROM user_favorites
+            WHERE user_id = $1 AND home_id = $2;
+        `, [userId, homeId]);
+
+        // You can include additional logic or error handling if needed
+
+    } catch (error) {
+        throw error;
+    }
+};
+
 module.exports = {
     createUser,
     getUser,
     getUserByEmail,
     getUserById,
-    getUserFavorites
+    getUserFavorites,
+    createUserFavorites,
+    deleteUserFavorite
 };

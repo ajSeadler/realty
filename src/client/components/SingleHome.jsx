@@ -1,14 +1,16 @@
-// SingleHome.jsx
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Typography, Card, CardContent, Grid, Button } from "@mui/material";
+import { Typography, Card, CardContent, Grid, Button, IconButton } from "@mui/material";
 import AgentModal from "./AgentModal";
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import StarIcon from '@mui/icons-material/Star';
 
 const SingleHome = () => {
   const { id } = useParams();
   const [home, setHome] = useState(null);
   const [isAgentModalOpen, setAgentModalOpen] = useState(false);
   const [agentInfo, setAgentInfo] = useState({});
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     const fetchHome = async () => {
@@ -21,7 +23,26 @@ const SingleHome = () => {
       }
     };
 
+    const checkFavoriteStatus = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (token) {
+          const favoritesResponse = await fetch('/api/users/favorites', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const favoritesData = await favoritesResponse.json();
+          const isFavorite = favoritesData.favorites.includes(parseInt(id, 10));
+          setIsFavorite(isFavorite);
+        }
+      } catch (error) {
+        console.error('Error checking favorite status:', error);
+      }
+    };
+
     fetchHome();
+    checkFavoriteStatus();
   }, [id]);
 
   const handleOpenAgentModal = async () => {
@@ -31,7 +52,6 @@ const SingleHome = () => {
       const agentData = await agentResponse.json();
 
       // Set agent info for displaying in the modal
-
       setAgentInfo({
         name: agentData.name,
         email: agentData.email,
@@ -51,16 +71,40 @@ const SingleHome = () => {
     setAgentModalOpen(false);
   };
 
+  const toggleFavorite = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const url = isFavorite ? '/api/users/favorites/remove' : '/api/users/favorites/add';
+        const method = isFavorite ? 'DELETE' : 'POST';
+
+        const response = await fetch(url, {
+          method,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ homeId: id }),
+        });
+
+        if (response.ok) {
+          setIsFavorite(!isFavorite);
+        } else {
+          console.error('Failed to toggle favorite status:', response.status);
+        }
+      }
+    } catch (error) {
+      console.error('Error toggling favorite status:', error);
+    }
+  };
+
   if (!home) {
     return <Typography variant="h6">Loading...</Typography>;
   }
 
   const contactAgentContent = (
     <div style={{ marginTop: "20px" }}>
-      <Typography
-        variant="h6"
-        style={{ marginBottom: "10px", marginLeft: "1%" }}
-      >
+      <Typography variant="h6" style={{ marginBottom: "10px", marginLeft: "1%" }}>
         Contact the Listing Agent
       </Typography>
       <Typography variant="body1" style={{ marginLeft: "1%" }}>
@@ -80,10 +124,7 @@ const SingleHome = () => {
 
   const obtainHouseContent = (
     <div style={{ marginTop: "20px" }}>
-      <Typography
-        variant="h6"
-        style={{ marginBottom: "10px", marginLeft: "1%" }}
-      >
+      <Typography variant="h6" style={{ marginBottom: "10px", marginLeft: "1%" }}>
         How to Obtain This House
       </Typography>
       <Typography variant="body1" style={{ marginLeft: "1%" }}>
@@ -136,18 +177,14 @@ const SingleHome = () => {
               <Typography variant="h4">{home.address}</Typography>
               <Typography variant="h6">Price: ${home.price}</Typography>
               <Typography variant="body2">Bedrooms: {home.bedrooms}</Typography>
-              <Typography variant="body2">
-                Bathrooms: {home.bathrooms}
-              </Typography>
-              <Typography variant="body2">
-                Square Feet: {home.square_feet}
-              </Typography>
-              <Typography variant="body2">
-                Year Built: {home.year_built}
-              </Typography>
-
+              <Typography variant="body2">Bathrooms: {home.bathrooms}</Typography>
+              <Typography variant="body2">Square Feet: {home.square_feet}</Typography>
+              <Typography variant="body2">Year Built: {home.year_built}</Typography>
               {/* Add more details as needed */}
             </CardContent>
+            <IconButton onClick={toggleFavorite} style={{ position: 'absolute', top: '5%', right: '5%', zIndex: 1 }}>
+              {isFavorite ? <StarIcon color="primary" /> : <StarOutlineIcon />}
+            </IconButton>
             {contactAgentContent}
             {obtainHouseContent}
             <Button

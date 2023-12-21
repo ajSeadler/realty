@@ -69,6 +69,7 @@ const Login = () => {
         localStorage.setItem('token', result.token);
         setToken(result.token);
         setMessage('Login successful'); // Update this line
+        window.location.replace('/profile');
       } else {
         throw new Error('Token not present in the response');
       }
