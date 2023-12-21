@@ -10,6 +10,7 @@ import Footer from './Footer';
 const StyledContainer = styled(Container)({
   margin: 'auto', // Set margin to auto for both left and right
   paddingTop: '40px', // Add padding at the top for better spacing
+  color:'white'
 });
 
 const HeroSection = styled('div')({

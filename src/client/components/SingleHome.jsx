@@ -4,6 +4,7 @@ import { Typography, Card, CardContent, Grid, Button, IconButton } from "@mui/ma
 import AgentModal from "./AgentModal";
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
+import Footer from './Footer'
 
 const SingleHome = () => {
   const { id } = useParams();
@@ -139,19 +140,46 @@ const SingleHome = () => {
       >
         Get Started
       </Button>
+      <div style={{ marginTop: "20px" }}>
+  <Typography variant="h6" style={{ marginBottom: "10px", marginLeft: "1%" }}>
+    Neighborhood Information
+  </Typography>
+  <Typography variant="body1" style={{ marginLeft: "1%" }}>
+    Explore the vibrant neighborhood around {home.address}. Conveniently located near top-rated schools, parks, and shopping centers. 
+    {/* Add more neighborhood details */}
+  </Typography>
+</div>
+
     </div>
   );
 
   return (
+    <>
+    <div
+        style={{
+          background: "#2196F3", // Adjust the background color as needed
+          padding: "40px 20px", // Adjust the padding as needed
+          textAlign: "center",
+          color: "#fff", // Text color on the header
+        }}
+      >
+        <Typography variant="h3" style={{ marginBottom: "16px" }}>
+          Your Dream Home Awaits
+        </Typography>
+        <Typography variant="subtitle1">
+          Explore the details of this stunning property and make it yours today.
+        </Typography>
+      </div>
     <div
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         maxHeight: "100vh",
-        marginTop: "15%",
+        marginTop: "1%",
       }}
     >
+      
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <Card elevation={3} style={{ height: "100%", marginLeft: "2%" }}>
@@ -173,7 +201,11 @@ const SingleHome = () => {
               marginRight: "2%",
             }}
           >
+            <div style={{marginLeft:'auto'}}><IconButton onClick={toggleFavorite}>
+              {isFavorite ? <StarIcon color="primary" /> : <StarOutlineIcon />}
+            </IconButton></div>
             <CardContent>
+            
               <Typography variant="h4">{home.address}</Typography>
               <Typography variant="h6">Price: ${home.price}</Typography>
               <Typography variant="body2">Bedrooms: {home.bedrooms}</Typography>
@@ -182,9 +214,9 @@ const SingleHome = () => {
               <Typography variant="body2">Year Built: {home.year_built}</Typography>
               {/* Add more details as needed */}
             </CardContent>
-            <IconButton onClick={toggleFavorite} style={{ position: 'absolute', top: '5%', right: '5%', zIndex: 1 }}>
-              {isFavorite ? <StarIcon color="primary" /> : <StarOutlineIcon />}
-            </IconButton>
+
+           
+            
             {contactAgentContent}
             {obtainHouseContent}
             <Button
@@ -203,6 +235,7 @@ const SingleHome = () => {
         <AgentModal agentInfo={agentInfo} onClose={handleCloseAgentModal} />
       )}
     </div>
+    <Footer /> </>
   );
 };
 
