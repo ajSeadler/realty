@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { styled } from '@mui/system';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -63,6 +64,10 @@ const HomeList = () => {
     fontSize: '2.5rem', // Adjust the font size of the dots
   };
 
+  const StyledPriceTypography = styled(Typography)({
+    fontWeight: 'bold',
+  });
+
   return (
     <>
       <div style={{ marginBottom: '0%', marginTop: '4%', position: 'relative' }}>
@@ -78,7 +83,7 @@ const HomeList = () => {
                   />
                   <CardContent>
                     <Typography variant="h6">{home.address}</Typography>
-                    <Typography variant="subtitle1">Price: ${home.price}</Typography>
+                    <StyledPriceTypography variant="body1">${home.price}</StyledPriceTypography>
                     <Typography variant="body2">Bedrooms: {home.bedrooms}</Typography>
                     <Typography variant="body2">Bathrooms: {home.bathrooms}</Typography>
                     <Typography variant="body2">Square Feet: {home.square_feet}</Typography>

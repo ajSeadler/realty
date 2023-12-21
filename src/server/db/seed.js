@@ -188,12 +188,13 @@ const createTables = async () => {
         bedrooms INT,
         bathrooms FLOAT,
         square_feet INT,
-        price DECIMAL(10, 2),
+        price VARCHAR(15), -- Change the data type to VARCHAR to store formatted price
         year_built INT,
         image_url VARCHAR(255),
         zillow_link VARCHAR(255),
         agent_id INT REFERENCES agents(id)
     );
+    
 
     CREATE TABLE user_favorites (
       id SERIAL PRIMARY KEY,
@@ -225,21 +226,21 @@ const insertUsers = async () => {
 
 // Function to insert sample homes
 const insertHomes = async () => {
-    try {
-        for (const home of homes) {
+  try {
+      for (const home of homes) {
+          const formattedPrice = home.price.toLocaleString(); // Format price with commas
           await db.query(`
-          INSERT INTO homes (address, bedrooms, bathrooms, square_feet, price, year_built, image_url, zillow_link, agent_id)
-          VALUES 
-              ('${home.address}', ${home.bedrooms}, ${home.bathrooms}, ${home.square_feet}, ${home.price}, ${home.year_built}, '${home.image_url}', '${home.zillow_link}', ${home.agent_id});
-      `);
-      
-      
-        }
-        console.log('Seed homes data inserted successfully.');
-    } catch (error) {
-        console.error('Error inserting seed homes data:', error);
-    }
+              INSERT INTO homes (address, bedrooms, bathrooms, square_feet, price, year_built, image_url, zillow_link, agent_id)
+              VALUES 
+                  ('${home.address}', ${home.bedrooms}, ${home.bathrooms}, ${home.square_feet}, '${formattedPrice}', ${home.year_built}, '${home.image_url}', '${home.zillow_link}', ${home.agent_id});
+          `);
+      }
+      console.log('Seed homes data inserted successfully.');
+  } catch (error) {
+      console.error('Error inserting seed homes data:', error);
+  }
 };
+
 
 const insertAgents = async () => {
   try {

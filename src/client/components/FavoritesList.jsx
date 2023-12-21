@@ -34,6 +34,11 @@ const StyledCardMedia = styled(CardMedia)({
 
 const StyledCardContent = styled(CardContent)({
   padding: '16px',
+  textAlign:'left'
+});
+
+const StyledPriceTypography = styled(Typography)({
+  fontWeight: 'bold',
 });
 
 const StyledModalContent = styled(Box)({
@@ -92,10 +97,11 @@ const FavoritesList = ({ favorites }) => {
                   <Typography variant="h6" gutterBottom>
                     {favorite.address}
                   </Typography>
+                  <StyledPriceTypography variant="body1">${favorite.price}</StyledPriceTypography>
                   <Typography variant="body1">Bedrooms: {favorite.bedrooms}</Typography>
                   <Typography variant="body1">Bathrooms: {favorite.bathrooms}</Typography>
                   <Typography variant="body1">Square Feet: {favorite.square_feet}</Typography>
-                  <Typography variant="body1">Price: ${favorite.price}</Typography>
+                  
                   <Button
                     variant="contained"
                     color="primary"
