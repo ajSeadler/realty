@@ -7,6 +7,7 @@ import HomeList from './components/HomeList';
 import Profile from './components/Profile';
 import SingleHome from './components/SingleHome';
 import SignUp from './components/SignUp';
+import AllHomes from './components/AllHomes';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/homes" element={<HomeList />} />
+        <Route path="/all-homes" element={<AllHomes />} />
         <Route path="/homes/:id" element={<SingleHome />} />
         <Route path="/register" element={<SignUp />} />
       </Routes>

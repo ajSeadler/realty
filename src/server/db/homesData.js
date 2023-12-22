@@ -9,7 +9,8 @@ const homes = [
     year_built: 1990,
     image_url: '../images/house2.jpeg',
     zillow_link: 'https://www.zillow.com/example1',
-    agent_id: 1
+    agent_id: 1,
+    bio: 'A cozy family home with three bedrooms and two and a half bathrooms. This charming house is located in a quiet neighborhood, offering a perfect blend of comfort and tranquility.'
   },
   {
     address: '456 Oak Ave',
@@ -20,7 +21,8 @@ const homes = [
     year_built: 2005,
     image_url: '../images/house10.jpeg',
     zillow_link: 'https://www.zillow.com/example2',
-    agent_id: 1
+    agent_id: 1,
+    bio: 'Spacious and modern, this four-bedroom home is perfect for a growing family. With three bathrooms and ample living space, it provides a comfortable and stylish living environment.'
   },
   {
     address: '734 West Liberty St.',
@@ -31,7 +33,8 @@ const homes = [
     year_built: 1997,
     image_url: '../images/house5.jpeg',
     zillow_link: 'https://www.zillow.com/example1',
-    agent_id: 2
+    agent_id: 2,
+    bio: 'Elegant and sophisticated, this four-bedroom home features three and a half bathrooms and beautiful architectural details. Conveniently located with easy access to amenities.'
   },
   {
     address: '896 Crimson Rd.',
@@ -43,6 +46,7 @@ const homes = [
     image_url: '../images/house4.jpeg',
     zillow_link: 'https://www.zillow.com/example2',
     agent_id: 1,
+    bio: 'A historic gem! This four-bedroom home, built in 1919, boasts classic charm and character. With three bathrooms and a spacious interior, it offers a unique living experience.'
   },
   {
     address: '144 Second St',
@@ -54,6 +58,7 @@ const homes = [
     image_url: '../images/house6.jpeg',
     zillow_link: 'https://www.zillow.com/example1',
     agent_id: 2,
+    bio: 'Contemporary luxury at its finest! This four-bedroom home features three bathrooms and a modern design. With a spacious layout and high-end finishes, its a dream home!'
   },
   {
     address: '3390 West Fern Ave',
@@ -65,6 +70,7 @@ const homes = [
     image_url: '../images/house7.jpeg',
     zillow_link: 'https://www.zillow.com/example2',
     agent_id: 1,
+    bio: "A perfect family retreat! This four-bedroom home offers three bathrooms and a serene atmosphere. With a spacious backyard and modern amenities, it's an ideal living space!"
   },
   {
     address: '998 Coral Ave',
@@ -76,6 +82,7 @@ const homes = [
     image_url: '../images/house8.jpeg',
     zillow_link: 'https://www.zillow.com/example1',
     agent_id: 2,
+    bio: "Charming and inviting! This three-bedroom home features two and a half bathrooms. With a modern kitchen and cozy living spaces, it's a perfect blend of comfort and style."
   },
   {
     address: '648 Cherry Ave',
@@ -86,13 +93,10 @@ const homes = [
     year_built: 2008,
     image_url: '../images/house9.jpeg',
     zillow_link: 'https://www.zillow.com/example2',
-    agent_id: 2
+    agent_id: 2,
+    bio: "Luxury living awaits! This four-bedroom home boasts three bathrooms and high-end finishes. With a spacious layout and beautiful surroundings, it's an elegant retreat."
   },
   // Add more home objects as needed
 ];
-
-
-
-
 
 module.exports = homes;

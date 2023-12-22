@@ -16,7 +16,7 @@ const StyledContainer = styled(Container)({
 const HeroSection = styled('div')({
   position: 'relative',
   overflow: 'hidden',
-  height: '70vh',
+  height: '60vh',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -31,16 +31,27 @@ const HeroImage = styled('img')({
 
 const HeroText = styled(motion.div)({
   textAlign: 'center',
+  backgroundColor: 'rgba(119, 119, 119, 0.5)', // Adjust the transparency as needed
   color: '#fff',
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   zIndex: 1,
+  padding: '20px', // Add padding to the HeroText
+  borderRadius: '8px', // Add rounded corners for better aesthetics
+  width: '70%', // Adjust the width to make it more responsive
+  maxWidth: 'auto',
+   // Set a maximum width for larger screens
 });
 
 const CtaButton = styled(motion(Button))({
   marginTop: '20px',
+  backgroundColor: '#FF5733'
+});
+
+const ViewAllHomesButton = styled(Link)({
+  textDecoration: 'none'
 });
 
 const Home = () => {
@@ -60,29 +71,41 @@ const Home = () => {
             variants={fadeInVariants}
             transition={{ duration: 1 }}
           >
-            <Typography variant="h3" component="div" gutterBottom>
-              Find Your Dream Home
-            </Typography>
-            <Link to="/login" style={{ textDecoration: 'none' }}>
+            <Typography variant="h2" component="div" gutterBottom>
+            Welcome to Stunning Realty
+          </Typography>
+          
+          <Link to="/login" style={{ textDecoration: 'none' }}>
               <CtaButton
                 component={Button}
                 variant="contained"
-                color="primary"
+                
               >
                 Get Started
               </CtaButton>
             </Link>
+            
           </HeroText>
         </HeroSection>
 
         <StyledContainer>
-          <Typography variant="h2" component="div" gutterBottom>
-            Welcome to Stunning Realty
-          </Typography>
-          <Typography variant="body1" component="div" gutterBottom>
+        <Typography variant="h3" component="div" gutterBottom>
+              Find Your Dream Home
+            </Typography>
+            <Typography variant="body1" component="div" gutterBottom>
             Explore our wide range of properties and find the perfect home for
             you.
           </Typography>
+            
+          <ViewAllHomesButton to="/all-homes">
+              <CtaButton
+                component={Button}
+                variant="contained"
+                style={{color:'#FF5733', backgroundColor:'white'}}
+              >
+                View All Homes
+              </CtaButton>
+            </ViewAllHomesButton>
           <HomeList />
         </StyledContainer>
       </div>

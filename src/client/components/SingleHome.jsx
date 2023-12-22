@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Typography, Card, CardContent, Grid, Button, IconButton } from "@mui/material";
+import {
+  Typography,
+  Card,
+  CardContent,
+  Grid,
+  Button,
+  IconButton,
+} from "@mui/material";
 import AgentModal from "./AgentModal";
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
-import StarIcon from '@mui/icons-material/Star';
-import Footer from './Footer'
+import StarOutlineIcon from "@mui/icons-material/StarOutline";
+import StarIcon from "@mui/icons-material/Star";
+import Footer from "./Footer";
 
 const SingleHome = () => {
   const { id } = useParams();
@@ -26,9 +33,9 @@ const SingleHome = () => {
 
     const checkFavoriteStatus = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         if (token) {
-          const favoritesResponse = await fetch('/api/users/favorites', {
+          const favoritesResponse = await fetch("/api/users/favorites", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -38,7 +45,7 @@ const SingleHome = () => {
           setIsFavorite(isFavorite);
         }
       } catch (error) {
-        console.error('Error checking favorite status:', error);
+        console.error("Error checking favorite status:", error);
       }
     };
 
@@ -74,15 +81,17 @@ const SingleHome = () => {
 
   const toggleFavorite = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (token) {
-        const url = isFavorite ? '/api/users/favorites/remove' : '/api/users/favorites/add';
-        const method = isFavorite ? 'DELETE' : 'POST';
+        const url = isFavorite
+          ? "/api/users/favorites/remove"
+          : "/api/users/favorites/add";
+        const method = isFavorite ? "DELETE" : "POST";
 
         const response = await fetch(url, {
           method,
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ homeId: id }),
@@ -91,11 +100,11 @@ const SingleHome = () => {
         if (response.ok) {
           setIsFavorite(!isFavorite);
         } else {
-          console.error('Failed to toggle favorite status:', response.status);
+          console.error("Failed to toggle favorite status:", response.status);
         }
       }
     } catch (error) {
-      console.error('Error toggling favorite status:', error);
+      console.error("Error toggling favorite status:", error);
     }
   };
 
@@ -105,7 +114,10 @@ const SingleHome = () => {
 
   const contactAgentContent = (
     <div style={{ marginTop: "20px" }}>
-      <Typography variant="h6" style={{ marginBottom: "10px", marginLeft: "1%" }}>
+      <Typography
+        variant="h6"
+        style={{ marginBottom: "10px", marginLeft: "1%" }}
+      >
         Contact the Listing Agent
       </Typography>
       <Typography variant="body1" style={{ marginLeft: "1%" }}>
@@ -114,8 +126,8 @@ const SingleHome = () => {
       </Typography>
       <Button
         variant="outlined"
-        color="primary"
-        style={{ marginTop: "10px", marginLeft: "1%" }}
+        
+        style={{ marginTop: "10px", marginLeft: "1%", backgroundColor: "#fff", color:'#FF5733', borderColor:'#333' }}
         onClick={handleOpenAgentModal}
       >
         Contact Agent
@@ -125,7 +137,10 @@ const SingleHome = () => {
 
   const obtainHouseContent = (
     <div style={{ marginTop: "20px" }}>
-      <Typography variant="h6" style={{ marginBottom: "10px", marginLeft: "1%" }}>
+      <Typography
+        variant="h6"
+        style={{ marginBottom: "10px", marginLeft: "1%" }}
+      >
         How to Obtain This House
       </Typography>
       <Typography variant="body1" style={{ marginLeft: "1%" }}>
@@ -136,31 +151,34 @@ const SingleHome = () => {
       <Button
         variant="outlined"
         color="primary"
-        style={{ marginTop: "10px", marginLeft: "1%" }}
+        style={{ marginTop: "10px", marginLeft: "1%", backgroundColor: "#fff", color:'#FF5733', borderColor:'#333' }}
       >
         Get Started
       </Button>
       <div style={{ marginTop: "20px" }}>
-  <Typography variant="h6" style={{ marginBottom: "10px", marginLeft: "1%" }}>
-    Neighborhood Information
-  </Typography>
-  <Typography variant="body1" style={{ marginLeft: "1%" }}>
-    Explore the vibrant neighborhood around {home.address}. Conveniently located near top-rated schools, parks, and shopping centers. 
-    {/* Add more neighborhood details */}
-  </Typography>
-</div>
-
+        <Typography
+          variant="h6"
+          style={{ marginBottom: "10px", marginLeft: "1%" }}
+        >
+          Neighborhood Information
+        </Typography>
+        <Typography variant="body1" style={{ marginLeft: "1%" }}>
+          Explore the vibrant neighborhood around {home.address}. Conveniently
+          located near top-rated schools, parks, and shopping centers.
+          {/* Add more neighborhood details */}
+        </Typography>
+      </div>
     </div>
   );
 
   return (
     <>
-    <div
+      {/* <div
         style={{
-          background: "#2196F3", // Adjust the background color as needed
-          padding: "40px 20px", // Adjust the padding as needed
+          background: "#2196F3",
+          padding: "40px 20px",
           textAlign: "center",
-          color: "#fff", // Text color on the header
+          color: "#fff",
         }}
       >
         <Typography variant="h3" style={{ marginBottom: "16px" }}>
@@ -169,73 +187,93 @@ const SingleHome = () => {
         <Typography variant="subtitle1">
           Explore the details of this stunning property and make it yours today.
         </Typography>
-      </div>
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        maxHeight: "100vh",
-        marginTop: "1%",
-      }}
-    >
-      
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <Card elevation={3} style={{ height: "100%", marginLeft: "2%" }}>
-            <img
-              src={home.image_url}
-              alt={`House at ${home.address}`}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Card
-            elevation={3}
-            style={{
-              height: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              marginRight: "2%",
-            }}
-          >
-            <div style={{marginLeft:'auto'}}><IconButton onClick={toggleFavorite}>
-              {isFavorite ? <StarIcon color="primary" /> : <StarOutlineIcon />}
-            </IconButton></div>
-            <CardContent>
-            
-              <Typography variant="h4">{home.address}</Typography>
-              <Typography variant="h6">Price: ${home.price}</Typography>
-              <Typography variant="body2">Bedrooms: {home.bedrooms}</Typography>
-              <Typography variant="body2">Bathrooms: {home.bathrooms}</Typography>
-              <Typography variant="body2">Square Feet: {home.square_feet}</Typography>
-              <Typography variant="body2">Year Built: {home.year_built}</Typography>
-              {/* Add more details as needed */}
-            </CardContent>
-
-           
-            
-            {contactAgentContent}
-            {obtainHouseContent}
-            <Button
-              component={Link}
-              to="/"
-              variant="contained"
-              color="primary"
-              style={{ margin: "10px" }}
+      </div> */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          maxHeight: "100vh",
+          marginTop: "1%",
+        }}
+      >
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <Card elevation={3} style={{ height: "100%", marginLeft: "2%" }}>
+              <img
+                src={home.image_url}
+                alt={`House at ${home.address}`}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Card
+              elevation={3}
+              style={{
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                marginRight: "2%",
+              }}
             >
-              Back to Home
-            </Button>
-          </Card>
+              <div style={{ marginLeft: "auto" }}>
+                <IconButton onClick={toggleFavorite}>
+                  {isFavorite ? (
+                    <StarIcon color="primary" />
+                  ) : (
+                    <StarOutlineIcon />
+                  )}
+                </IconButton>
+              </div>
+              <CardContent>
+                <Typography variant="h4">{home.address}</Typography>
+                
+                <Typography variant="h6">Price: ${home.price}</Typography>
+                <Typography variant="body2">
+                  Bedrooms: {home.bedrooms}
+                </Typography>
+                <Typography variant="body2">
+                  Bathrooms: {home.bathrooms}
+                </Typography>
+                <Typography variant="body2">
+                  Square Feet: {home.square_feet}
+                </Typography>
+                <Typography variant="body2">
+                  Year Built: {home.year_built}
+                </Typography>
+                <h2>About this home</h2>
+                <Typography
+                  variant="body1"
+                  style={{ marginLeft: "1%", fontSize: "1rem", color: "#555", width:'50%' }}
+                >
+                  {home.bio}
+                </Typography>
+
+                {/* Add more details as needed */}
+              </CardContent>
+
+              {contactAgentContent}
+              {obtainHouseContent}
+              <Button
+                component={Link}
+                to="/"
+                variant="contained"
+                color="primary"
+                style={{ margin: "10px", backgroundColor:'#001F3F' }}
+              >
+                Back to Home
+              </Button>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
-      {isAgentModalOpen && (
-        <AgentModal agentInfo={agentInfo} onClose={handleCloseAgentModal} />
-      )}
-    </div>
-    <Footer /> </>
+        {isAgentModalOpen && (
+          <AgentModal agentInfo={agentInfo} onClose={handleCloseAgentModal} />
+        )}
+      </div>
+      <Footer />{" "}
+    </>
   );
 };
 

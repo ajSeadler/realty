@@ -2,8 +2,9 @@ import React from 'react';
 import { styled } from '@mui/system';
 
 const FooterContainer = styled('footer')({
-  backgroundColor: '#f8f8f8',
-  color: '#333',
+  // 
+  backgroundColor:'#333',
+  color: '#fff',
   padding: '40px 0',
   textAlign: 'center',
   width: '100%',
@@ -15,7 +16,7 @@ const FooterContent = styled('div')({
 });
 
 const FooterSection = styled('div')({
-  marginBottom: '30px',
+  marginBottom: '0px',
 });
 
 const FooterHeading = styled('h3')({
@@ -32,12 +33,13 @@ const FooterParagraph = styled('p')({
 
 const FooterLinks = styled('div')({
   display: 'flex',
+  
   justifyContent: 'center',
   marginTop: '0px',
 });
 
 const FooterLink = styled('a')({
-  color: '#0073bb',
+  color:'#FF5733',
   fontSize: '16px',
   margin: '0 10px',
   textDecoration: 'none',

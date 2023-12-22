@@ -18,16 +18,33 @@ const StyledLoadingContainer = styled('div')({
   height: '200px',
 });
 
-const StyledFavoritesContainer = styled('div')({
-  marginTop: '20px',
+const StyledContentContainer = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
 });
 
 const StyledAvatar = styled(Avatar)({
   width: 100,
   height: 100,
-  margin: '0 auto 20px', // Example: margin top and bottom 20px, auto margin left and right
+  margin: '20px', // Margin around the Avatar
 });
 
+const StyledWelcomeMessage = styled(Typography)({
+  fontSize: '1.5rem',
+  fontWeight: 'bold',
+  marginTop: '3%',
+});
+
+const StyledEmail = styled(Typography)({
+  fontSize: '1rem',
+  color: '#555', // Adjust the color to your preference
+  marginBottom: '0px',
+});
+
+const StyledFavoritesContainer = styled('div')({
+  marginTop: '20px',
+});
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -91,10 +108,10 @@ const Profile = () => {
           <CircularProgress />
         </StyledLoadingContainer>
       ) : userData ? (
-        <div>
-          <Typography variant="h4" gutterBottom>
-            Welcome!
-          </Typography>
+        <StyledContentContainer>
+          <StyledWelcomeMessage variant="h4" gutterBottom>
+            Welcome, {userData.name}!
+          </StyledWelcomeMessage>
           {/* Display user's profile picture or use MUI Avatar */}
           {userData.image_url ? (
             <StyledAvatar alt={userData.name} src={userData.image_url} />
@@ -104,17 +121,15 @@ const Profile = () => {
             </StyledAvatar>
           )}
 
-          
-          <Typography variant="body1">Hello, {userData.name}!</Typography>
-          <Typography variant="body1">Email: {userData.email}</Typography>
+          <StyledEmail variant="body1">Email: {userData.email}</StyledEmail>
 
           {/* Use the FavoritesList component */}
           <StyledFavoritesContainer>
             <FavoritesList favorites={favorites} />
           </StyledFavoritesContainer>
-        </div>
+        </StyledContentContainer>
       ) : (
-        <Typography variant="body1">Failed to fetch user data.</Typography>
+        <Typography variant="h4">Failed to fetch user data, try logging in again.</Typography>
       )}
     </StyledPaper>
   );

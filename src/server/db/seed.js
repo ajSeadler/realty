@@ -53,8 +53,10 @@ const createTables = async () => {
         year_built INT,
         image_url VARCHAR(255),
         zillow_link VARCHAR(255),
-        agent_id INT REFERENCES agents(id)
+        agent_id INT REFERENCES agents(id),
+        bio VARCHAR(255) NOT NULL
       );
+      
 
       CREATE TABLE user_favorites (
         id SERIAL PRIMARY KEY,
@@ -86,16 +88,18 @@ const insertHomes = async () => {
     for (const home of homes) {
       const formattedPrice = home.price.toLocaleString(); // Format price with commas
       await db.query(`
-          INSERT INTO homes (address, bedrooms, bathrooms, square_feet, price, year_built, image_url, zillow_link, agent_id)
-          VALUES 
-              ('${home.address}', ${home.bedrooms}, ${home.bathrooms}, ${home.square_feet}, '${formattedPrice}', ${home.year_built}, '${home.image_url}', '${home.zillow_link}', ${home.agent_id});
-      `);
+        INSERT INTO homes (address, bedrooms, bathrooms, square_feet, price, year_built, image_url, zillow_link, agent_id, bio)
+        VALUES 
+            ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);
+      `, [home.address, home.bedrooms, home.bathrooms, home.square_feet, formattedPrice, home.year_built, home.image_url, home.zillow_link, home.agent_id, home.bio]);
     }
     console.log('Seed homes data inserted successfully.');
   } catch (error) {
     console.error('Error inserting seed homes data:', error);
   }
 };
+
+
 
 const insertAgents = async () => {
   try {
