@@ -126,8 +126,13 @@ const SingleHome = () => {
       </Typography>
       <Button
         variant="outlined"
-        
-        style={{ marginTop: "10px", marginLeft: "1%", backgroundColor: "#fff", color:'#FF5733', borderColor:'#333' }}
+        style={{
+          marginTop: "10px",
+          marginLeft: "1%",
+          backgroundColor: "#fff",
+          color: "#FF5733",
+          borderColor: "#333",
+        }}
         onClick={handleOpenAgentModal}
       >
         Contact Agent
@@ -151,7 +156,13 @@ const SingleHome = () => {
       <Button
         variant="outlined"
         color="primary"
-        style={{ marginTop: "10px", marginLeft: "1%", backgroundColor: "#fff", color:'#FF5733', borderColor:'#333' }}
+        style={{
+          marginTop: "10px",
+          marginLeft: "1%",
+          backgroundColor: "#fff",
+          color: "#FF5733",
+          borderColor: "#333",
+        }}
       >
         Get Started
       </Button>
@@ -173,37 +184,36 @@ const SingleHome = () => {
 
   return (
     <>
-      {/* <div
-        style={{
-          background: "#2196F3",
-          padding: "40px 20px",
-          textAlign: "center",
-          color: "#fff",
-        }}
-      >
-        <Typography variant="h3" style={{ marginBottom: "16px" }}>
-          Your Dream Home Awaits
-        </Typography>
-        <Typography variant="subtitle1">
-          Explore the details of this stunning property and make it yours today.
-        </Typography>
-      </div> */}
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          maxHeight: "100vh",
+          height: "100vh",
           marginTop: "1%",
+          marginBottom: "0%",
+          backgroundColor: "rgb(225, 224, 224)",
         }}
       >
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
-            <Card elevation={3} style={{ height: "100%", marginLeft: "2%" }}>
+            <Card
+              elevation={3}
+              style={{
+                height: "100%",
+                marginLeft: "2%",
+                marginTop: "3%",
+                maxHeight: "auto",
+              }}
+            >
               <img
                 src={home.image_url}
                 alt={`House at ${home.address}`}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
               />
             </Card>
           </Grid>
@@ -216,20 +226,23 @@ const SingleHome = () => {
                 flexDirection: "column",
                 justifyContent: "space-between",
                 marginRight: "2%",
+                marginTop: "3%",
               }}
             >
-              <div style={{ marginLeft: "auto" }}>
-                <IconButton onClick={toggleFavorite}>
+              <div style={{ marginLeft: "auto",   }}>
+                <IconButton  onClick={toggleFavorite} >
                   {isFavorite ? (
-                    <StarIcon color="primary" />
+                    <StarIcon
+                      style={{ color: "#FF5733", fontSize: "2rem"  }}
+                    />
                   ) : (
-                    <StarOutlineIcon />
+                    <StarOutlineIcon  style={{fontSize: "2rem"}}/>
                   )}
                 </IconButton>
               </div>
               <CardContent>
                 <Typography variant="h4">{home.address}</Typography>
-                
+
                 <Typography variant="h6">Price: ${home.price}</Typography>
                 <Typography variant="body2">
                   Bedrooms: {home.bedrooms}
@@ -246,12 +259,15 @@ const SingleHome = () => {
                 <h2>About this home</h2>
                 <Typography
                   variant="body1"
-                  style={{ marginLeft: "1%", fontSize: "1rem", color: "#555", width:'50%' }}
+                  style={{
+                    marginLeft: "1%",
+                    fontSize: "1rem",
+                    color: "#555",
+                    width: "50%",
+                  }}
                 >
                   {home.bio}
                 </Typography>
-
-                {/* Add more details as needed */}
               </CardContent>
 
               {contactAgentContent}
@@ -261,7 +277,7 @@ const SingleHome = () => {
                 to="/"
                 variant="contained"
                 color="primary"
-                style={{ margin: "10px", backgroundColor:'#001F3F' }}
+                style={{ margin: "10px", backgroundColor: "#001F3F" }}
               >
                 Back to Home
               </Button>
@@ -272,7 +288,7 @@ const SingleHome = () => {
           <AgentModal agentInfo={agentInfo} onClose={handleCloseAgentModal} />
         )}
       </div>
-      <Footer />{" "}
+      <Footer />
     </>
   );
 };

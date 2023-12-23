@@ -11,12 +11,12 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const CustomPrevArrow = (props) => {
   const { onClick } = props;
-  return <ArrowBackIcon onClick={onClick} style={{ fontSize: '3rem', color: '#333', zIndex: 1, cursor: 'pointer', position: 'absolute', top: '50%', left: '-5%' }} />;
+  return <ArrowBackIcon onClick={onClick} style={{ fontSize: '3rem', color: '#fff', zIndex: 1, cursor: 'pointer', position: 'absolute', top: '50%', left: '-5%' }} />;
 };
 
 const CustomNextArrow = (props) => {
   const { onClick } = props;
-  return <ArrowForwardIcon onClick={onClick} style={{ fontSize: '3rem', color: '#333', zIndex: 1, cursor: 'pointer', position: 'absolute', top: '50%', right: '-5%' }} />;
+  return <ArrowForwardIcon onClick={onClick} style={{ fontSize: '3rem', color: '#fff', zIndex: 1, cursor: 'pointer', position: 'absolute', top: '50%', right: '-5%' }} />;
 };
 
 const HomeList = () => {
@@ -39,7 +39,7 @@ const HomeList = () => {
 
   const settings = {
     dots: true,
-    arrows: false,
+    arrows: true,
     infinite: true,
     speed: 500,
     slidesToShow: 3,

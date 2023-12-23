@@ -7,7 +7,7 @@ const StyledNavBar = styled('nav')({
   display: 'flex',
   justifyContent: 'flex-end',
   padding: '16px',
-  backgroundColor: '#333',
+  backgroundColor: '#fff',
   color: '#fff',
   width: '100%',
   position: 'fixed',
@@ -16,7 +16,7 @@ const StyledNavBar = styled('nav')({
 });
 
 const StyledLink = styled(Link)({
-  color: '#fff',
+  color: '#333',
   textDecoration: 'none',
   margin: '0 16px',
   '&:hover': {
@@ -28,7 +28,7 @@ const StyledLink = styled(Link)({
 const ExitToAppButton = styled('button')({
   background: 'none',
   border: 'none',
-  color: '#fff',
+  color: '#333',
   marginRight:'2%',
   cursor: 'pointer',
   '&:hover': {
@@ -53,6 +53,10 @@ const NavBar = () => {
     <>
       <StyledNavBar>
         <StyledLink to="/">Home</StyledLink>
+        <StyledLink to="/all-homes">Buy</StyledLink>
+        <StyledLink to="/">Rent</StyledLink>
+        <StyledLink to="/">Sell</StyledLink>
+        <StyledLink to="/">Agents</StyledLink>
         {localStorage.getItem('token') ? (
           <>
             <StyledLink to="/profile">Profile</StyledLink>

@@ -1,32 +1,24 @@
-// Sample user data
+const { faker } = require('@faker-js/faker');
+
+// Function to generate a fake user
+const generateFakeUser = () => ({
+  name: faker.person.fullName(),
+  email: faker.internet.email(),
+  password: faker.internet.password(),
+});
+
+// Generate 20 fake users
+const fakeUsers = Array.from({ length: 20 }, generateFakeUser);
+
+// Include one hardcoded user
 const users = [
   {
     name: 'AJ Seadler',
     email: 'aj@example.com',
     password: 'securepass',
   },
-  {
-    name: 'Liu Wei',
-    email: 'liu@example.com',
-    password: 'strongpass',
-  },
-  {
-    name: 'Isabella García',
-    email: 'bella@example.com',
-    password: 'pass1234',
-  },
-  {
-    name: 'Mohammed Ahmed',
-    email: 'mohammed@example.com',
-    password: 'mysecretpassword',
-  },
-  {
-    name: 'John Smith',
-    email: 'john@example.com',
-    password: 'password123',
-  },
-  // Add more user objects as needed
+  ...fakeUsers,
 ];
 
-
+// Export the combined users array
 module.exports = users;
