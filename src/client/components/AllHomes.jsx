@@ -114,6 +114,7 @@ const AllHomes = () => {
                   <Typography variant="h6" style={{ marginBottom: '8px', color: '#333' }}>
                     {home.address}
                   </Typography>
+                  <Typography variant="body1">{home.city}, {home.state}</Typography>
                   <Typography variant="body2" style={{ marginBottom: '8px', color: '#666' }}>
                     Bedrooms: {home.bedrooms} | Bathrooms: {home.bathrooms}
                   </Typography>

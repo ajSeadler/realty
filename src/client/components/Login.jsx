@@ -24,7 +24,7 @@ const StyledContainer = styled(Container)({
   width: '100%',
   height: '100vh',
   justifyContent: 'center',
-  backgroundImage: `url(${loginImage})`,
+  backgroundImage: 'linear-gradient(to right, #001F3F, #FF5733)',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   color: 'white',
@@ -49,6 +49,7 @@ const StyledForm = styled('form')({
 
 const StyledButton = styled(Button)({
   margin: '16px 0',
+  backgroundColor: '#FF5733',
 });
 
 const StyledMessageContainer = styled('div')({
