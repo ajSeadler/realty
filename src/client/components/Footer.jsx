@@ -82,7 +82,7 @@ const Footer = () => {
         </FooterSection>
         <FooterSection>
           <FooterParagraph>&copy; 2023 Stunning Realty. All rights reserved. </FooterParagraph>
-          <FooterParagraph>(This is a fake site for educational purposes) </FooterParagraph>
+          <FooterParagraph>(This is a fake site for educational purposes. All images were obtained via open source.) </FooterParagraph>
         </FooterSection>
       </FooterContent>
     </FooterContainer>

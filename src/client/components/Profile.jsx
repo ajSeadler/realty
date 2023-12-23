@@ -42,6 +42,29 @@ const StyledEmail = styled(Typography)({
   marginBottom: '0px',
 });
 
+const StyledUserInfoContainer = styled('div')({
+  backgroundColor: '#f0f0f0',
+  padding: '20px',
+  borderRadius: '8px',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+});
+
+const StyledProfileContent = styled('div')({
+  display: 'grid',
+  gridTemplateColumns: 'auto 1fr',
+  gap: '20px',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+const StyledProfileText = styled('div')({
+  textAlign: 'left',
+});
+
+const StyledProfileImage = styled(StyledAvatar)({
+  justifySelf: 'center',
+});
+
 const StyledFavoritesContainer = styled('div')({
   marginTop: '20px',
 });
@@ -109,20 +132,22 @@ const Profile = () => {
         </StyledLoadingContainer>
       ) : userData ? (
         <StyledContentContainer>
-          <StyledWelcomeMessage variant="h4" gutterBottom>
-            Welcome, {userData.name}!
-          </StyledWelcomeMessage>
-          {/* Display user's profile picture or use MUI Avatar */}
-          {userData.image_url ? (
-            <StyledAvatar alt={userData.name} src={userData.image_url} />
-          ) : (
-            <StyledAvatar alt={userData.name}>
-              {userData.name.charAt(0)}
-            </StyledAvatar>
-          )}
+           <StyledUserInfoContainer>
+              <StyledWelcomeMessage variant="h4" gutterBottom>
+                Welcome, {userData.name}!
+              </StyledWelcomeMessage>
 
-          <StyledEmail variant="body1">Email: {userData.email}</StyledEmail>
+              <StyledProfileContent>
+                <StyledAvatar alt={userData.name} src={userData.image_url}>
+                  {userData.name.charAt(0)}
+                </StyledAvatar>
 
+                <StyledProfileText>
+                  <StyledEmail variant="body1">{userData.email}</StyledEmail>
+                  {/* Add more profile information here if needed */}
+                </StyledProfileText>
+              </StyledProfileContent>
+            </StyledUserInfoContainer>
           {/* Use the FavoritesList component */}
           <StyledFavoritesContainer>
             <FavoritesList favorites={favorites} />
