@@ -1,4 +1,4 @@
-**Stunning Realty**
+##**Stunning Realty**
 <img width="1792" alt="realty" src="https://github.com/ajSeadler/realty/assets/134530749/4348982a-9bbb-4d03-b49f-bd570659eadf">
 
 *PERN stack web app*
