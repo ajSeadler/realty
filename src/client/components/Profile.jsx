@@ -44,6 +44,7 @@ const StyledEmail = styled(Typography)({
 
 const StyledUserInfoContainer = styled('div')({
   backgroundColor: '#f0f0f0',
+  width:'100vh',
   padding: '20px',
   borderRadius: '8px',
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',

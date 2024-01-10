@@ -61,7 +61,8 @@ const StyledAgentImage = styled("img")({
 });
 
 const StyledRemoveButton = styled(Button)({
-  border: '1px solid #2196f3',
+  border: '1px solid #FF5733',
+  color:'#FF5733',
   background: 'transparent',
   marginLeft: '10px',
   '&:hover': {
@@ -148,14 +149,14 @@ const FavoritesList = ({ favorites, setFavorites }) => {
 
                   <Button
                     variant="contained"
-                    color="primary"
+                    style={{backgroundColor:'#FF5733'}}
                     onClick={() => handleOpenModal(favorite)}
                   >
                     Contact Agent
                   </Button>
 
                   <StyledRemoveButton
-                    color="primary"
+                    
                     onClick={() => removeFavorite(favorite.id)}
                   >
                     Remove Favorite

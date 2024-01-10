@@ -55,8 +55,8 @@ const NavBar = () => {
         <StyledLink to="/">Home</StyledLink>
         <StyledLink to="/all-homes">Buy</StyledLink>
         <StyledLink to="/">Rent</StyledLink>
-        <StyledLink to="/">Sell</StyledLink>
-        <StyledLink to="/">Agents</StyledLink>
+        <StyledLink to="/sell">Sell</StyledLink>
+        <StyledLink to="/agents">Agents</StyledLink>
         {localStorage.getItem('token') ? (
           <>
             <StyledLink to="/profile">Profile</StyledLink>

@@ -72,7 +72,7 @@ const HomeList = () => {
     <>
       <div style={{ marginBottom: '0%', marginTop: '4%', position: 'relative' }}>
         <Slider {...settings}>
-          {homes.map((home) => (
+        {homes.slice(0, 10).map((home) => (
             <div key={home.id}>
               <Link to={`/homes/${home.id}`} style={{ textDecoration: 'none' }}>
                 <Card elevation={3} style={{ height: '100%' }}>
@@ -83,11 +83,13 @@ const HomeList = () => {
                   />
                   <CardContent>
                     <Typography variant="h6">{home.address}</Typography>
-                    <StyledPriceTypography variant="body1">${home.price}</StyledPriceTypography>
+                    <Typography variant="body1">{home.city}, {home.state}</Typography>
+                    
                     <Typography variant="body2">Bedrooms: {home.bedrooms}</Typography>
                     <Typography variant="body2">Bathrooms: {home.bathrooms}</Typography>
                     <Typography variant="body2">Square Feet: {home.square_feet}</Typography>
                     <Typography variant="body2">Year Built: {home.year_built}</Typography>
+                    <Typography variant="h6">${home.price}</Typography>
                     {/* Add more details as needed */}
                   </CardContent>
                 </Card>

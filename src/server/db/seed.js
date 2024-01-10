@@ -1,30 +1,29 @@
-// Import necessary modules
-const db = require('./client');
-const { createUser } = require('./users');
-const homes = require('./homesData');
-const users = require('./usersData');
-const agents = require('./agentsData');
+const db = require("./client");
+const { createUser } = require("./users");
+const homes = require("./homesData");
+const users = require("./usersData");
+const agents = require("./agentsData");
 
 // Only need one - this was just to test.
 const favorites = [
   {
     user_id: 1,
-    home_id: [1, 2, 3, 4, 5, 6],
+    home_id: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
   },
 ];
 
-// Function to drop existing tables
 const dropTables = async () => {
   try {
+    // Drop tables in reverse order to handle dependencies
     await db.query(`
-      DROP TABLE IF EXISTS user_favorites, users, homes, agents CASCADE;
+      DROP TABLE IF EXISTS user_favorites, homes, agents, users CASCADE;
     `);
+    console.log("Tables dropped successfully.");
   } catch (err) {
     throw err;
   }
 };
 
-// Function to create tables
 const createTables = async () => {
   try {
     await db.query(`
@@ -39,23 +38,27 @@ const createTables = async () => {
         id SERIAL PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
-        phone_number VARCHAR(20),
+        phone_number VARCHAR(255),
         image_url VARCHAR(255)
       );
 
-      CREATE TABLE homes(
+      CREATE TABLE homes (
         id SERIAL PRIMARY KEY,
         address VARCHAR(255) NOT NULL,
+        city VARCHAR(255) NOT NULL, 
+        state VARCHAR(2) NOT NULL, 
         bedrooms INT,
         bathrooms FLOAT,
         square_feet INT,
-        price VARCHAR(15), -- Change the data type to VARCHAR to store formatted price
+        price VARCHAR(15),
         year_built INT,
         image_url VARCHAR(255),
         zillow_link VARCHAR(255),
         agent_id INT REFERENCES agents(id),
-        bio VARCHAR(255) NOT NULL
-      );
+        bio VARCHAR(255) NOT NULL,
+        user_id INT REFERENCES users(id)
+    );
+    
       
 
       CREATE TABLE user_favorites (
@@ -70,36 +73,53 @@ const createTables = async () => {
   }
 };
 
-// Function to insert sample users
 const insertUsers = async () => {
   try {
     for (const user of users) {
-      await createUser({ name: user.name, email: user.email, password: user.password });
+      await createUser({
+        name: user.name,
+        email: user.email,
+        password: user.password,
+      });
     }
-    console.log('Seed users data inserted successfully.');
+    console.log("Seed users data inserted successfully.");
   } catch (error) {
-    console.error('Error inserting seed users data:', error);
+    console.error("Error inserting seed users data:", error);
   }
 };
 
-// Function to insert sample homes
 const insertHomes = async () => {
   try {
     for (const home of homes) {
       const formattedPrice = home.price.toLocaleString(); // Format price with commas
-      await db.query(`
-        INSERT INTO homes (address, bedrooms, bathrooms, square_feet, price, year_built, image_url, zillow_link, agent_id, bio)
+      await db.query(
+        `
+        INSERT INTO homes (address, city, state, bedrooms, bathrooms, square_feet, price, year_built, image_url, zillow_link, agent_id, bio, user_id)
         VALUES 
-            ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);
-      `, [home.address, home.bedrooms, home.bathrooms, home.square_feet, formattedPrice, home.year_built, home.image_url, home.zillow_link, home.agent_id, home.bio]);
+            ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);
+      `,
+        [
+          home.address,
+          home.city,
+          home.state,
+          home.bedrooms,
+          home.bathrooms,
+          home.square_feet,
+          formattedPrice,
+          home.year_built,
+          home.image_url,
+          home.zillow_link,
+          home.agent_id,
+          home.bio,
+          home.user_id,
+        ]
+      );
     }
-    console.log('Seed homes data inserted successfully.');
+    console.log("Seed homes data inserted successfully.");
   } catch (error) {
-    console.error('Error inserting seed homes data:', error);
+    console.error("Error inserting seed homes data:", error);
   }
 };
-
-
 
 const insertAgents = async () => {
   try {
@@ -110,9 +130,9 @@ const insertAgents = async () => {
               ('${agent.name}', '${agent.email}', '${agent.phone_number}', '${agent.image_url}');
       `);
     }
-    console.log('Seed agents data inserted successfully.');
+    console.log("Seed agents data inserted successfully.");
   } catch (error) {
-    console.error('Error inserting seed agents data:', error);
+    console.error("Error inserting seed agents data:", error);
   }
 };
 
@@ -126,13 +146,12 @@ const insertFavorites = async () => {
         `);
       }
     }
-    console.log('Seed favorites data inserted successfully.');
+    console.log("Seed favorites data inserted successfully.");
   } catch (error) {
-    console.error('Error inserting seed favorites data:', error);
+    console.error("Error inserting seed favorites data:", error);
   }
 };
 
-// Function to seed the database with users and homes
 const seedDatabase = async () => {
   try {
     db.connect();
@@ -149,5 +168,4 @@ const seedDatabase = async () => {
   }
 };
 
-// Call the function to seed the database
 seedDatabase();

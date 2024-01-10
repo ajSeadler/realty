@@ -242,8 +242,9 @@ const SingleHome = () => {
               </div>
               <CardContent>
                 <Typography variant="h4">{home.address}</Typography>
+                <Typography variant="body1">{home.city}, {home.state}</Typography>
 
-                <Typography variant="h6">Price: ${home.price}</Typography>
+                
                 <Typography variant="body2">
                   Bedrooms: {home.bedrooms}
                 </Typography>
@@ -256,6 +257,7 @@ const SingleHome = () => {
                 <Typography variant="body2">
                   Year Built: {home.year_built}
                 </Typography>
+                <Typography variant="h6">Price: ${home.price}</Typography>
                 <h2>About this home</h2>
                 <Typography
                   variant="body1"
