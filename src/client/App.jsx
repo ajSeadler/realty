@@ -8,6 +8,8 @@ import Profile from './components/Profile';
 import SingleHome from './components/SingleHome';
 import SignUp from './components/SignUp';
 import AllHomes from './components/AllHomes';
+import AgentList from './components/AgentsList';
+import Sphere from './components/AddHomeForm';
 
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
         <Route path="/all-homes" element={<AllHomes />} />
         <Route path="/homes/:id" element={<SingleHome />} />
         <Route path="/register" element={<SignUp />} />
+        <Route path="/agents" element={<AgentList />} />
+        <Route path="/sell" element={<Sphere />} />
       </Routes>
       
     

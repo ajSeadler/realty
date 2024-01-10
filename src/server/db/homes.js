@@ -21,7 +21,24 @@ const getHomeById = async (homeId) => {
     }
 };
 
+const createHome = async (homeData, userId) => {
+    try {
+        const { name, address, bedrooms, bathrooms, square_feet, price, year_built, image_url, zillow_link, agent_id, bio } = homeData;
+
+        const result = await db.query(
+            'INSERT INTO homes (name, address, bedrooms, bathrooms, square_feet, price, year_built, image_url, zillow_link, agent_id, bio, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *',
+[name, address, bedrooms, bathrooms, square_feet, price, year_built, image_url, zillow_link, agent_id, bio, userId]
+
+        );
+
+        return result.rows[0];
+    } catch (error) {
+        throw error;
+    }
+};
+
 module.exports = {
     getAllHomes,
     getHomeById,
+    createHome
 };
