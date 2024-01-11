@@ -5,7 +5,7 @@ const FooterContainer = styled('footer')({
   // 
   backgroundColor:'#333',
   color: '#fff',
-  padding: '40px 0',
+  padding: '40px',
   textAlign: 'center',
   width: '100%',
 });
@@ -17,6 +17,7 @@ const FooterContent = styled('div')({
 
 const FooterSection = styled('div')({
   marginBottom: '0px',
+
 });
 
 const FooterHeading = styled('h3')({
